@@ -7,9 +7,20 @@
   pointer-events: none;
 }
 
+.App-shooting-star {
+  background-color: aliceblue;
+  height: 10px;
+  width: 10px;
+  border-radius: 50%;
+ 
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
+  }
+  .App-shooting-star {
+    animation: App-star-move infinite 20s linear;
   }
 }
 
@@ -34,5 +45,17 @@
   }
   to {
     transform: rotate(360deg);
+  }
+}
+
+@keyframes App-star-move {
+  0% {
+    transform: translateX(-200px);
+  }
+  50% {
+    transform: translateX(200px);
+  }
+  100% {
+    transform: translateX(-200px);
   }
 }
