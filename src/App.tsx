@@ -6,10 +6,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-      <div className="App-shooting-star"></div>
        Space Invaders
+       <div className="App-shooting-star-1"></div>
        <img src={logo} alt="Space Invader Logo" className='App-logo' />
-       <div className="App-shooting-star"></div>
+       <div className="App-shooting-star-2"></div>
       </header>
      
     </div>

@@ -7,20 +7,23 @@
   pointer-events: none;
 }
 
-.App-shooting-star {
+.App-shooting-star-1, .App-shooting-star-2 {
   background-color: aliceblue;
   height: 10px;
   width: 10px;
   border-radius: 50%;
- 
+  margin-bottom: 20px;
 }
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
-  .App-shooting-star {
-    animation: App-star-move infinite 20s linear;
+  .App-shooting-star-1 {
+    animation: App-star-move-1 infinite 20s linear;
+  }
+  .App-shooting-star-2 {
+    animation: App-star-move-2 infinite 25s linear;
   }
 }
 
@@ -48,14 +51,30 @@
   }
 }
 
-@keyframes App-star-move {
+@keyframes App-star-move-1 {
   0% {
-    transform: translateX(-200px);
+    transform: translateX(-200px) translateY(50px);
+
   }
   50% {
-    transform: translateX(200px);
+    transform: translateX(200px) translateY(-100px);
   }
   100% {
-    transform: translateX(-200px);
+    transform: translateX(-200px) translateY(50px);
   }
 }
+
+@keyframes App-star-move-2 {
+  0% {
+    transform: translateX(200px) translateY(0px);
+
+  }
+  50% {
+    transform: translateX(-200px) translateY(50px);
+  }
+  100% {
+    transform: translateX(200px) translateY(0px);
+  }
+}
+
+
