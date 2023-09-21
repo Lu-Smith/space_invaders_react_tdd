@@ -8,6 +8,7 @@ function App() {
       <header className="App-header">
        Space Invaders
        <img src={logo} alt="Space Invader Logo" className='App-logo' />
+       <div className="App-shooting-star"></div>
       </header>
      
     </div>
