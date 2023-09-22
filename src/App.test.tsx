@@ -8,4 +8,13 @@ test('renders logo and title components', () => {
   expect(SpaceInvaders).toBeInTheDocument();
   const LogoElement = screen.getByAltText(/Space Invader Logo/i);
   expect(LogoElement).toBeInTheDocument();
+  const StarElementOne = screen.getByTestId('App-shooting-star-1');
+  expect(StarElementOne).toBeInTheDocument();
+  const StarElementTwo = screen.getByTestId('App-shooting-star-2');
+  expect(StarElementTwo).toBeInTheDocument();
 });
+
+
+
+
+
