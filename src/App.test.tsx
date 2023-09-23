@@ -1,9 +1,12 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import App from './App';
 
 test('renders all components', () => {
   render(<App />);
+  
+  const headerElement = screen.getByTestId('App-header');
+  expect(headerElement).toBeInTheDocument();
   const SpaceInvaders = screen.getByText(/Space Invaders/i);
   expect(SpaceInvaders).toBeInTheDocument();
   const LogoElement = screen.getByAltText(/Space Invader Logo/i);
@@ -16,6 +19,17 @@ test('renders all components', () => {
   expect(StartButton).toBeInTheDocument();
 });
 
+test('renders game after click at the start button', async () => {
+  render(<App />);
+  const StartButton = screen.getByText(/Start/i);
+  await fireEvent.click(StartButton);
+
+  const headerElement = screen.getByTestId('App-header');
+  expect(headerElement).toBeNull();
+
+  const gameDivElement = screen.getByText(/Game Content/i);
+  expect(gameDivElement).toBeInTheDocument();
+});
 
 
 
