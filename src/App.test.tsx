@@ -2,7 +2,7 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders logo and title components', () => {
+test('renders all components', () => {
   render(<App />);
   const SpaceInvaders = screen.getByText(/Space Invaders/i);
   expect(SpaceInvaders).toBeInTheDocument();
@@ -12,6 +12,8 @@ test('renders logo and title components', () => {
   expect(StarElementOne).toBeInTheDocument();
   const StarElementTwo = screen.getByTestId('App-shooting-star-2');
   expect(StarElementTwo).toBeInTheDocument();
+  const StartButton = screen.getByText(/Start/i);
+  expect(StartButton).toBeInTheDocument();
 });
 
 
