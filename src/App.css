@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Major+Mono+Display&family=Roboto&display=swap');
+
 .App {
   text-align: center;
 }
@@ -28,7 +30,7 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #1c1520;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -36,23 +38,29 @@
   justify-content: center;
   font-size: calc(20px + 2vmin);
   color: #E83D16;
+  font-family: 'Major Mono Display', monospace;
+  text-shadow: 3px 3px 1px rgba(0, 0, 0, 0.5);
 }
 
 .App-start-button {
   background-color: rgba(0, 0, 0, 0.2);
   border: none;
+  box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
   padding: 10px 15px;
   font-size: calc(20px + 2vmin);
-  color: #E83D16;
+  color: #e0c6c0;
   transition: 200ms all ease-in-out;
+  font-family: 'Major Mono Display', monospace;
+  letter-spacing: 1px;
 }
 
 .App-start-button:hover {
   background-color: rgba(0, 0, 0, 0.8);
   border-radius: 35px;
   color: #b3857b;
-}rgb(145, 42, 18)
+  box-shadow: none;
+}
 
 @keyframes App-logo-spin {
   from {
