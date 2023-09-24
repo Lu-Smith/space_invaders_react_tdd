@@ -9,6 +9,10 @@ test('renders all components', () => {
   expect(timerContainer).toBeInTheDocument();
   const timerElement = screen.getByText('00:00');
   expect(timerElement).toBeInTheDocument();
+  const scoreContainer = screen.getByTestId('score-container');
+  expect(scoreContainer).toBeInTheDocument();
+  const scoreElement = screen.getByText('score');
+  expect(scoreElement).toBeInTheDocument();
 
 
 });
