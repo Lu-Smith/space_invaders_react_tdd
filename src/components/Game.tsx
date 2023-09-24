@@ -12,6 +12,7 @@ const Game = () => {
       </div>
       <div className="game-container" data-testid="game-container">
         game
+        <div data-testId="game-button-container">pause</div>
       </div>
       <FooterComponent />
     </div>
