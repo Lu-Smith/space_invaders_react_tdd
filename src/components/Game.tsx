@@ -9,6 +9,9 @@ const Game = () => {
       <div className="score-container" data-testid="score-container">
         score
       </div>
+      <div className="game-container" data-testid="game-container">
+        game
+      </div>
     </div>
   )
 }
