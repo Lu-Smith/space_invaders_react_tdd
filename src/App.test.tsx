@@ -25,8 +25,8 @@ test('renders game after click at the start button', async () => {
   const StartButton = screen.getByText(/Start/i);
   fireEvent.click(StartButton);
 
-  const gameDivElement = screen.getByText(/Game Content/i);
-  expect(gameDivElement).toBeInTheDocument();
+  const gameComponent = screen.getByTestId('Game-component');
+  expect(gameComponent).toBeInTheDocument();
 });
 
 

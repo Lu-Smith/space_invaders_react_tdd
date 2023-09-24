@@ -2,7 +2,7 @@ import React from 'react'
 
 const Game = () => {
   return (
-    <div>Game</div>
+    <div data-testid="Game-component">00:00</div>
   )
 }
 
