@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import Game from './Game';
+import Game from './components/Game';
 
 test('renders all components', () => {
   render(<Game />);
