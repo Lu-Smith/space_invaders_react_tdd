@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import FooterComponent from './FooterComponent';
 
 const Game = () => {
   return (
@@ -12,6 +13,7 @@ const Game = () => {
       <div className="game-container" data-testid="game-container">
         game
       </div>
+      <FooterComponent />
     </div>
   )
 }

@@ -18,7 +18,7 @@ test('renders all components', () => {
   const gameElement = screen.getByText('game');
   expect(gameElement).toBeInTheDocument();
 
-  const footerComponent = screen.getByTestId('footer-component');
+  const footerComponent = screen.getByTestId('Footer-component');
   expect(footerComponent).toBeInTheDocument();
 
 
