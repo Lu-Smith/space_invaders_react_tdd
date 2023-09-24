@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import logo from './media/logo.png';
 import './App.css';
+import Game from './components/Game';
 
 function App() {
   const [showHeader, setShowHeader] = useState(true);
@@ -20,9 +21,7 @@ function App() {
         <button className='App-start-button' onClick={handleClick}>Start</button>
       </header>
       ) : (
-        <div className="App-game-container">
-          Game Content
-        </div>
+          <Game />
       )}
     </div>
   );
