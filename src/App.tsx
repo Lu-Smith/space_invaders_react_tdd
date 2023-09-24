@@ -21,7 +21,7 @@ function App() {
         <button className='App-start-button' onClick={handleClick}>Start</button>
       </header>
       ) : (
-          <Game />
+        <Game />
       )}
     </div>
   );
