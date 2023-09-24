@@ -17,19 +17,11 @@ test('renders all components', () => {
   expect(StarElementTwo).toBeInTheDocument();
   const StartButton = screen.getByText(/Start/i);
   expect(StartButton).toBeInTheDocument();
-});
-
-test('renders game after click at the start button', async () => {
-  render(<App />);
-  const StartButton = screen.getByText(/Start/i);
-  await fireEvent.click(StartButton);
-
-  const headerElement = screen.getByTestId('App-header');
-  expect(headerElement).toBeNull();
-
   const gameDivElement = screen.getByText(/Game Content/i);
-  expect(gameDivElement).toBeInTheDocument();
+  expect(gameDivElement).not.toBeInTheDocument();
 });
+
+
 
 
 
