@@ -18,5 +18,8 @@ test('renders all components', () => {
   const gameElement = screen.getByText('game');
   expect(gameElement).toBeInTheDocument();
 
+  const footerComponent = screen.getByTestId('footer-component');
+  expect(footerComponent).toBeInTheDocument();
+
 
 });
