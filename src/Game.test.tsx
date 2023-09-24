@@ -13,6 +13,10 @@ test('renders all components', () => {
   expect(scoreContainer).toBeInTheDocument();
   const scoreElement = screen.getByText('score');
   expect(scoreElement).toBeInTheDocument();
+  const gameContainer = screen.getByTestId('game-container');
+  expect(gameContainer).toBeInTheDocument();
+  const gameElement = screen.getByText('game');
+  expect(gameElement).toBeInTheDocument();
 
 
 });
