@@ -5,7 +5,7 @@ import '../styles/Game.css';
 const Game = () => {
   return (
     <div data-testid="Game-component" className='Game'>
-      <header className="game-header" data-testId="game-header">
+      <header className="Game-header" data-testId="game-header">
         <div className="timer-container" data-testid="timer-container">
           00:00
         </div>
