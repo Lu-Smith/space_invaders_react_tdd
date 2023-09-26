@@ -6,7 +6,7 @@ test('renders all components', () => {
   render(<GameBoard />);
   
   const squares = screen.getAllByTestId('square');
-  expect(squares).toHaveLength(250);
+  expect(squares).toHaveLength(500);
 });
 
 test('each square has the correct class', () => {
