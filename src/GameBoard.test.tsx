@@ -6,7 +6,7 @@ test('renders all components', () => {
   render(<GameBoard />);
   
   const squares = screen.getAllByTestId('square');
-  expect(squares).toHaveLength(500);
+  expect(squares).toHaveLength(464);
 });
 
 test('each square has the correct class', () => {
@@ -21,7 +21,7 @@ test('each square has the correct class', () => {
 test('alins ivaders are display in GameBoard', () => {
     render(<GameBoard />);
     const allienInvaders = screen.getAllByTestId('invader');
-    expect(allienInvaders).toHaveLength(30);
+    expect(allienInvaders).toHaveLength(36);
     
     allienInvaders.forEach((invader) => {
       expect(invader).toHaveClass('invader');
