@@ -16,4 +16,14 @@ test('each square has the correct class', () => {
     squares.forEach((square) => {
       expect(square).toHaveClass('GameBoard-square');
     });
-  });
+});
+
+test('alins ivaders are display in GameBoard', () => {
+    render(<GameBoard />);
+    const allienInvaders = screen.getAllByTestId('invader');
+    expect(allienInvaders).toHaveLength(30);
+    
+    allienInvaders.forEach((invader) => {
+      expect(invader).toHaveClass('invader');
+    });
+});
