@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/GameBoard.css'
 
 const GameBoard = () => {
@@ -11,6 +11,8 @@ const GameBoard = () => {
         26,27,28,29,30,31,32,33,34,35,36,37,
         52,53,54,55,56,57,58,59,60,61
     ]
+
+  
 
     for (let i = 0; i < totalSquares; i++) {
         const isInvader = alienInvaders.includes(i);

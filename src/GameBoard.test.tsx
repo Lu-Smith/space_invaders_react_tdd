@@ -18,7 +18,7 @@ test('each square has the correct class', () => {
     });
 });
 
-test('alins ivaders are display in GameBoard', () => {
+test('aliens ivaders are display in GameBoard', () => {
     render(<GameBoard />);
     const allienInvaders = screen.getAllByTestId('invader');
     expect(allienInvaders).toHaveLength(36);
@@ -26,4 +26,11 @@ test('alins ivaders are display in GameBoard', () => {
     allienInvaders.forEach((invader) => {
       expect(invader).toHaveClass('invader');
     });
+});
+
+test('spaceship is diplayed in GameBoard', () => {
+    render(<GameBoard />);
+    const spaceship = screen.getAllByTestId('spaceship');
+    expect(spaceship).toHaveLength(1);
+    
 });
