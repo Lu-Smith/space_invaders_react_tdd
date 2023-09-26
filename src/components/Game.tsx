@@ -1,5 +1,6 @@
 import React from 'react';
 import FooterComponent from './FooterComponent';
+import GameBoard from './GameBoard';
 import '../styles/Game.css';
 
 const Game = () => {
@@ -14,7 +15,7 @@ const Game = () => {
         </div>
       </header>
       <div className="Game-container" data-testid="game-container">
-        game
+        <GameBoard />
         <button className="Game-button" data-testId="game-button">pause</button>
       </div>
       <FooterComponent />
