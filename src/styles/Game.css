@@ -15,5 +15,30 @@
 
 .Game-container {
     height: 84vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.Game-button {
+    background-color: rgba(230, 106, 106, 0.2);
+    border: none;
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.5);
+    border-radius: 15px;
+    padding: 10px 15px;
+    font-size: calc(8px + 2vmin);
+    color: #e0c6c0;
+    transition: 200ms all ease-in-out;
+    font-family: 'Major Mono Display', monospace;
+    letter-spacing: 1px;
+    margin-top: 30px;
+  }
+  
+.Game-button:hover {
+    background-color: rgba(32, 6, 6, 0.8);
+    border-radius: 35px;
+    color: #b3857b;
+    box-shadow: none;
 }
 

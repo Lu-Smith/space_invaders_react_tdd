@@ -48,7 +48,7 @@
   box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.5);
   border-radius: 15px;
   padding: 10px 15px;
-  font-size: calc(20px + 2vmin);
+  font-size: calc(15px + 2vmin);
   color: #e0c6c0;
   transition: 200ms all ease-in-out;
   font-family: 'Major Mono Display', monospace;
