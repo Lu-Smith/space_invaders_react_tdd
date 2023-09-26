@@ -15,7 +15,7 @@ const Game = () => {
       </header>
       <div className="Game-container" data-testid="game-container">
         game
-        <button className="Game-button" data-testId="Game-button">pause</button>
+        <button className="Game-button" data-testId="game-button">pause</button>
       </div>
       <FooterComponent />
     </div>
