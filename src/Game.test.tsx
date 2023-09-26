@@ -17,8 +17,8 @@ test('renders all components', () => {
   expect(scoreElement).toBeInTheDocument();
   const gameContainer = screen.getByTestId('game-container');
   expect(gameContainer).toBeInTheDocument();
-  const GameComponent = screen.getByTestId('Game-component');
-  expect(GameComponent).toBeInTheDocument();
+  const GameBoard = screen.getByTestId('Game-board');
+  expect(GameBoard).toBeInTheDocument();
   const buttonContainer = screen.getByTestId('game-button');
   expect(buttonContainer).toBeInTheDocument();
   const buttonElement = screen.getByText('pause');
