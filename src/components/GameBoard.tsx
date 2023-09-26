@@ -12,13 +12,19 @@ const GameBoard = () => {
         52,53,54,55,56,57,58,59,60,61
     ]
 
-  
+    const [spaceshipIndex, setpsaceshipIndex] = useState(487);
 
     for (let i = 0; i < totalSquares; i++) {
         const isInvader = alienInvaders.includes(i);
+        const isSpaceship = spaceshipIndex === i;
     
-        const squareClass = isInvader ? 'GameBoard-square invader' : 'GameBoard-square';
-        const squareId = isInvader ? 'invader' : 'square';
+        const squareClass = isInvader
+      ? 'GameBoard-square invader'
+      : isSpaceship
+      ? 'GameBoard-square spaceship'
+      : 'GameBoard-square';
+
+        const squareId = isInvader ? 'invader' : isSpaceship ? 'spaceship' : 'square';
     
         squares.push(<div key={i} className={squareClass} data-testId={squareId}></div>);
       }

@@ -6,7 +6,7 @@ test('renders all components', () => {
   render(<GameBoard />);
   
   const squares = screen.getAllByTestId('square');
-  expect(squares).toHaveLength(464);
+  expect(squares).toHaveLength(463);
 });
 
 test('each square has the correct class', () => {
@@ -30,7 +30,7 @@ test('aliens ivaders are display in GameBoard', () => {
 
 test('spaceship is diplayed in GameBoard', () => {
     render(<GameBoard />);
-    const spaceship = screen.getAllByTestId('spaceship');
-    expect(spaceship).toHaveLength(1);
+    const spaceship = screen.getByTestId('spaceship');
+    expect(spaceship).toBeInTheDocument();
     
 });

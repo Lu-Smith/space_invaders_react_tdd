@@ -18,3 +18,10 @@ background-color: rgb(3, 0, 1);
     background-repeat: no-repeat;
     background-position: center;
 }
+
+.spaceship {
+    background-image: url('../media/spaceshuttle.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
