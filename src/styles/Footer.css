@@ -1,0 +1,40 @@
+.Footer h4 {
+    color: antiquewhite;
+    font-weight: 300;
+}
+
+.Footer a::before,
+.Footer a::after {
+  content: attr(data-text); 
+  position: absolute;
+  left: 5px;
+  transform: translateY(0);
+  transition: transform 200ms ease-in-out;
+}
+
+.Footer a::after {
+ 
+    transform: translateY(0);
+    z-index: 2;
+}
+
+.Footer a:hover::after {
+transform: translateY(-5px);
+color: rgb(211, 164, 103);
+}
+
+.Footer a::before {
+  z-index: 1;
+  color: rgb(245, 238, 229);
+}
+.Footer a:hover::before {
+  transform: translateY(-5px);
+}
+
+.Footer a {
+    text-decoration: none;
+    color: transparent;
+    font-weight: 600;
+    position: relative;
+}
+
