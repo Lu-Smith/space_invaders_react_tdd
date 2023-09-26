@@ -1,8 +1,11 @@
 import React from 'react'
 
 const GameBoard = () => {
+
   return (
-    <div data-testId="Game-board">GameBoard</div>
+    <div data-testId="Game-board">
+
+    </div>
   )
 }
 
