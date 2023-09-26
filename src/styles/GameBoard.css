@@ -1,0 +1,13 @@
+.Game-board {
+    border: 4px solid rgba(112, 9, 31, 0.5);
+    display: grid;
+    grid-template-columns: repeat(25, 1fr);
+    grid-template-rows: repeat(20, 1fr);
+
+}
+
+.GameBoard-square {
+width: 20px;
+height: 20px;
+background-color: rgb(3, 0, 1);
+}

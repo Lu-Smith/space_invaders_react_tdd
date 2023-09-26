@@ -14,6 +14,6 @@ test('each square has the correct class', () => {
     const squares = screen.getAllByTestId('square');
     
     squares.forEach((square) => {
-      expect(square).toHaveClass('square');
+      expect(square).toHaveClass('GameBoard-square');
     });
   });
