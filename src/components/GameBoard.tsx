@@ -70,8 +70,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
             }
           }
 
-          if (newAlienInvaders.some((invader) => [100].includes(invader % numCols))) {
-            handleGameOver();
+          if (newAlienInvaders.some((invader) => invader > 475)) {
+            handleGameOver(); 
           }
     
           // Update the alienInvaders state
