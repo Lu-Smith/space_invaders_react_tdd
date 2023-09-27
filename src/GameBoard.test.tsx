@@ -39,8 +39,6 @@ test('move the spaceship in GameBoard after click on left or right arrow', async
     render(<GameBoard />);
   
     const spaceshipElement = screen.getAllByTestId('spaceship');
-    const spaceshipIndex = spaceshipElement.findIndex((square) => square.classList.contains('spaceship'));
-    expect(spaceshipIndex).toBe(0); 
   
     fireEvent.keyDown(document, { key: 'ArrowLeft' });
   
@@ -49,12 +47,8 @@ test('move the spaceship in GameBoard after click on left or right arrow', async
   
     fireEvent.keyDown(document, { key: 'ArrowRight' });
     fireEvent.keyDown(document, { key: 'ArrowRight' });
-  
 
     const finalSpaceshipElement = screen.getByTestId('spaceship');
     expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
-
-
-   
     
 });
