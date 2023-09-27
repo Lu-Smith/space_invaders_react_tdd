@@ -54,19 +54,18 @@ test('move the spaceship in GameBoard after click on left or right arrow', async
 
   render(<GameBoard handleGameOver={handleGameOver} />); 
 
-  
-    const spaceshipElement = screen.getAllByTestId('spaceship');
-  
-    fireEvent.keyDown(document, { key: 'ArrowLeft' });
-  
-    const updatedSpaceshipElement = screen.getByTestId('spaceship');
-    expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
-  
-    fireEvent.keyDown(document, { key: 'ArrowRight' });
-    fireEvent.keyDown(document, { key: 'ArrowRight' });
+  const spaceshipElement = screen.getAllByTestId('spaceship');
 
-    const finalSpaceshipElement = screen.getByTestId('spaceship');
-    expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
+  fireEvent.keyDown(document, { key: 'ArrowLeft' });
+
+  const updatedSpaceshipElement = screen.getByTestId('spaceship');
+  expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
+
+  fireEvent.keyDown(document, { key: 'ArrowRight' });
+  fireEvent.keyDown(document, { key: 'ArrowRight' });
+
+  const finalSpaceshipElement = screen.getByTestId('spaceship');
+  expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
     
 }); 
 
@@ -89,8 +88,15 @@ test('check if invaders are moving correctly in GameBoard', async () => {
 
   const finalinitialInvaders = screen.getAllByTestId('invader');
   expect(finalinitialInvaders).not.toEqual(initialInvaders); 
+}); 
 
-  
+test('check if the spaceshuttle shoot laser correctly', async () => {
+  const handleGameOver = jest.fn(); 
+  render(<GameBoard handleGameOver={handleGameOver} />);
+
+  const laserIndex = screen.getByTestId('laser');
+  const spaceshipElement = screen.getAllByTestId('spaceship');
+  expect(laserIndex).toEqual(spaceshipElement);
 }); 
 
 beforeEach(() => {
