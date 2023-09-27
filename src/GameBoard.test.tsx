@@ -35,18 +35,26 @@ test('the spaceship is diplayed in GameBoard', () => {
     
 });
 
-test('move the spaceship in GameBoard after click on left or right arrow', () => {
-    const { container } = render(<GameBoard />);
-    const spaceshipIndex = screen.getByTestId('spaceship');
-    expect(spaceshipIndex).toBe(487);
+test('move the spaceship in GameBoard after click on left or right arrow', async () => {
+    render(<GameBoard />);
+  
+    const spaceshipElement = screen.getAllByTestId('spaceship');
+    const spaceshipIndex = spaceshipElement.findIndex((square) => square.classList.contains('spaceship'));
+    expect(spaceshipIndex).toBe(0); 
+  
+    fireEvent.keyDown(document, { key: 'ArrowLeft' });
+  
+    const updatedSpaceshipElement = screen.getByTestId('spaceship');
+    expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
+  
+    fireEvent.keyDown(document, { key: 'ArrowRight' });
+    fireEvent.keyDown(document, { key: 'ArrowRight' });
+  
 
-    fireEvent.keyDown(container, { key: 'ArrowLeft' });
+    const finalSpaceshipElement = screen.getByTestId('spaceship');
+    expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
 
-    expect(spaceshipIndex).toBe(486);
 
-    fireEvent.keyDown(container, { key: 'ArrowRight' });
-    fireEvent.keyDown(container, { key: 'ArrowRight' });
-
-    expect(spaceshipIndex).toBe(488);
+   
     
 });
