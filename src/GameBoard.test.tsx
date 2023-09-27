@@ -1,9 +1,9 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import GameBoard from './components/GameBoard';
 
 test('renders all components', () => {
-    const handleGameOver = jest.fn(); // Create a mock function
+    const handleGameOver = jest.fn(); 
     render(<GameBoard handleGameOver={handleGameOver} />); 
 
     const squares = screen.getAllByTestId('square');
@@ -11,7 +11,7 @@ test('renders all components', () => {
 });
 
 test('each square has the correct class', () => {
-    const handleGameOver = jest.fn(); // Create a mock function
+    const handleGameOver = jest.fn(); 
     render(<GameBoard handleGameOver={handleGameOver} />); 
 
     const squares = screen.getAllByTestId('square');
@@ -21,8 +21,15 @@ test('each square has the correct class', () => {
     });
 });
 
+it('renders the correct number of squares', () => {
+  const handleGameOver = jest.fn(); 
+  render(<GameBoard handleGameOver={handleGameOver} />); 
+  const squares = screen.getAllByTestId('square');
+  expect(squares).toHaveLength(463); 
+});
+
 test('aliens ivaders are display in GameBoard', () => {
-    const handleGameOver = jest.fn(); // Create a mock function
+    const handleGameOver = jest.fn(); 
     render(<GameBoard handleGameOver={handleGameOver} />); 
 
     const allienInvaders = screen.getAllByTestId('invader');
@@ -34,7 +41,7 @@ test('aliens ivaders are display in GameBoard', () => {
 });
 
 test('the spaceship is diplayed in GameBoard', () => {
-    const handleGameOver = jest.fn(); // Create a mock function
+    const handleGameOver = jest.fn(); 
     render(<GameBoard handleGameOver={handleGameOver} />); 
 
     const spaceship = screen.getByTestId('spaceship');
@@ -43,7 +50,7 @@ test('the spaceship is diplayed in GameBoard', () => {
 });
 
 test('move the spaceship in GameBoard after click on left or right arrow', async () => {
-  const handleGameOver = jest.fn(); // Create a mock function
+  const handleGameOver = jest.fn(); 
 
   render(<GameBoard handleGameOver={handleGameOver} />); 
 
@@ -64,21 +71,25 @@ test('move the spaceship in GameBoard after click on left or right arrow', async
 }); 
 
 test('check if invaders are moving correctly in GameBoard', async () => {
-  const handleGameOver = jest.fn(); // Create a mock function
+  const handleGameOver = jest.fn(); 
+  render(<GameBoard handleGameOver={handleGameOver} />);
 
-  render(<GameBoard handleGameOver={handleGameOver} />); 
+  jest.useFakeTimers();
 
-  const spaceshipElement = screen.getAllByTestId('invader');
-
-  jest.advanceTimersByTime(2000); 
-
-  const updatedSpaceshipElement = screen.getByTestId('invader');
-  expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
+  const initialInvaders = screen.getAllByTestId('invader');
 
   jest.advanceTimersByTime(2000); 
+  render(<GameBoard handleGameOver={handleGameOver} />);
 
-  const finalSpaceshipElement = screen.getByTestId('invader');
-  expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
+  const updatedinitialInvaders = screen.getAllByTestId('invader');
+  expect(updatedinitialInvaders).not.toEqual(initialInvaders); 
+
+  jest.advanceTimersByTime(2000); 
+  render(<GameBoard handleGameOver={handleGameOver} />);
+
+  const finalinitialInvaders = screen.getAllByTestId('invader');
+  expect(finalinitialInvaders).not.toEqual(initialInvaders); 
+
   
 }); 
 
