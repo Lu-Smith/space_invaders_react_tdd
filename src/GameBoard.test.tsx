@@ -28,9 +28,25 @@ test('aliens ivaders are display in GameBoard', () => {
     });
 });
 
-test('spaceship is diplayed in GameBoard', () => {
+test('the spaceship is diplayed in GameBoard', () => {
     render(<GameBoard />);
     const spaceship = screen.getByTestId('spaceship');
     expect(spaceship).toBeInTheDocument();
+    
+});
+
+test('move the spaceship in GameBoard after click on left or right arrow', () => {
+    const { container } = render(<GameBoard />);
+    const spaceshipIndex = screen.getByTestId('spaceship');
+    expect(spaceshipIndex).toBe(487);
+
+    fireEvent.keyDown(container, { key: 'ArrowLeft' });
+
+    expect(spaceshipIndex).toBe(486);
+
+    fireEvent.keyDown(container, { key: 'ArrowRight' });
+    fireEvent.keyDown(container, { key: 'ArrowRight' });
+
+    expect(spaceshipIndex).toBe(488);
     
 });
