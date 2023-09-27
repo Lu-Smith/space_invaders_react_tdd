@@ -51,4 +51,31 @@ test('move the spaceship in GameBoard after click on left or right arrow', async
     const finalSpaceshipElement = screen.getByTestId('spaceship');
     expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
     
+}); 
+
+test('check if invaders are moving correctly in GameBoard', async () => {
+  render(<GameBoard />);
+
+  const spaceshipElement = screen.getAllByTestId('invader');
+
+  jest.advanceTimersByTime(2000); 
+
+  const updatedSpaceshipElement = screen.getByTestId('invader');
+  expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
+
+  jest.advanceTimersByTime(2000); 
+
+  const finalSpaceshipElement = screen.getByTestId('invader');
+  expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
+  
+}); 
+
+beforeEach(() => {
+  // Mock timers before each test
+  jest.useFakeTimers();
+});
+
+afterEach(() => {
+  // Restore timers after each test
+  jest.useRealTimers();
 });
