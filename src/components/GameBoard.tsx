@@ -52,24 +52,32 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
               newAlienInvaders[i] -= 1;
             }
           }
-    
+          const r = 0;
+          const rightEdge = [r, r+(25*1), r+(25*2), r+(25*3), r+(25*4), r+(25*5), r+(25*6), r+(25*7), r+(25*8), r+(25*9), r+(25*10), r+(25*11), r+(25*12), r+(25*13), r+(25*14), r+(25*15), r+(25*16), r+(25*17), r+(25*18)];
           // Check if they should change direction
-          if (newAlienInvaders[0] <= 0) {
+          if (newAlienInvaders.some((invader) => rightEdge.includes(invader % numCols))) {
             setDirection((prevDirection) => -prevDirection);
+            for (let i = 0; i < newAlienInvaders.length; i++) {
+                newAlienInvaders[i] += 25;
+            }
+        }
+          const l = 24;
+          const leftEdge = [l, l*2, l*3, l*4, l*5, l*6, l*7, l*8, l*9, l*10, l*11, l*12, l*13, l*14, l*15, l*16, l*17, l*18, l*19];
+          if (newAlienInvaders.some((invader) => leftEdge.includes(invader % numCols))) {
+            setDirection((prevDirection) => -prevDirection);
+            for (let i = 0; i < newAlienInvaders.length; i++) {
+                newAlienInvaders[i] += 25;
+            }
           }
 
-          if (newAlienInvaders.some((invader) => [24, 49, 74, 99, 124, 149, 174, 199, 224].includes(invader % numCols))) {
-            setDirection((prevDirection) => -prevDirection);
-          }
-
-          if (newAlienInvaders.some((invader) => [475].includes(invader % numCols))) {
+          if (newAlienInvaders.some((invader) => [100].includes(invader % numCols))) {
             handleGameOver();
           }
     
           // Update the alienInvaders state
           alienInvadersRemoved.push(...alienInvaders);
           setAlienInvaders(newAlienInvaders);
-        }, 500);
+        }, 100);
     
         return () => {
           clearInterval(intervalId);
