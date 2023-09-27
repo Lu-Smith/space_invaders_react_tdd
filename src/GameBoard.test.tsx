@@ -3,14 +3,17 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import GameBoard from './components/GameBoard';
 
 test('renders all components', () => {
-  render(<GameBoard />);
-  
-  const squares = screen.getAllByTestId('square');
-  expect(squares).toHaveLength(463);
+    const handleGameOver = jest.fn(); // Create a mock function
+    render(<GameBoard handleGameOver={handleGameOver} />); 
+
+    const squares = screen.getAllByTestId('square');
+    expect(squares).toHaveLength(463);
 });
 
 test('each square has the correct class', () => {
-    render(<GameBoard />);
+    const handleGameOver = jest.fn(); // Create a mock function
+    render(<GameBoard handleGameOver={handleGameOver} />); 
+
     const squares = screen.getAllByTestId('square');
     
     squares.forEach((square) => {
@@ -19,7 +22,9 @@ test('each square has the correct class', () => {
 });
 
 test('aliens ivaders are display in GameBoard', () => {
-    render(<GameBoard />);
+    const handleGameOver = jest.fn(); // Create a mock function
+    render(<GameBoard handleGameOver={handleGameOver} />); 
+
     const allienInvaders = screen.getAllByTestId('invader');
     expect(allienInvaders).toHaveLength(36);
     
@@ -29,14 +34,19 @@ test('aliens ivaders are display in GameBoard', () => {
 });
 
 test('the spaceship is diplayed in GameBoard', () => {
-    render(<GameBoard />);
+    const handleGameOver = jest.fn(); // Create a mock function
+    render(<GameBoard handleGameOver={handleGameOver} />); 
+
     const spaceship = screen.getByTestId('spaceship');
     expect(spaceship).toBeInTheDocument();
     
 });
 
 test('move the spaceship in GameBoard after click on left or right arrow', async () => {
-    render(<GameBoard />);
+  const handleGameOver = jest.fn(); // Create a mock function
+
+  render(<GameBoard handleGameOver={handleGameOver} />); 
+
   
     const spaceshipElement = screen.getAllByTestId('spaceship');
   
@@ -54,7 +64,9 @@ test('move the spaceship in GameBoard after click on left or right arrow', async
 }); 
 
 test('check if invaders are moving correctly in GameBoard', async () => {
-  render(<GameBoard />);
+  const handleGameOver = jest.fn(); // Create a mock function
+
+  render(<GameBoard handleGameOver={handleGameOver} />); 
 
   const spaceshipElement = screen.getAllByTestId('invader');
 
