@@ -22,7 +22,7 @@ const Game = () => {
           00:00
         </div>
         <div className="Game-score-container" data-testid="score-container">
-          score
+          {score}
         </div>
       </header>
       <div className="Game-container" data-testid="game-container">
