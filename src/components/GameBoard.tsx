@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react';
 import '../styles/GameBoard.css';
 
 interface GameBoardProps {
-    handleGameOver: () => void; // Define the prop type
+    handleGameOver: () => void; 
+    handleScore: () => void;
   }
   
 
-const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) => {
     const numRows = 20; 
     const numCols = 25; 
     const totalSquares = numRows * numCols;
@@ -34,10 +35,18 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
                 if (e.key === 'ArrowRight') {
                     setSpaceshipIndex((prevIndex) => Math.min(prevIndex + 1, totalSquares - 1));
                 }
-                if (e.key === 'ArrowUp') {
-                  setLaserIndex((prevIndex) => Math.min(prevIndex - 25, laserIndex));
-                  setShootLaser(true);
-              }
+
+                const laserId = setInterval(() => {
+                  if (e.key === 'ArrowUp') {
+                    setLaserIndex((prevIndex) => Math.min(prevIndex - 25, laserIndex));
+                    setShootLaser(true);
+                  }
+   
+                }, 20);
+
+                return () => {
+                  clearInterval(laserId);
+                };
             }
         };
 
@@ -46,7 +55,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [totalSquares]);
+    }, [totalSquares, laserIndex]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
