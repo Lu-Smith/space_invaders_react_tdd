@@ -26,3 +26,8 @@ background-color: rgb(3, 0, 1);
     background-position: center;
     background-size: 120%;
 }
+
+.laser {
+    background-color: red;
+    border-radius: 50%;
+}
