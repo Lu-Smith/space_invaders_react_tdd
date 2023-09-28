@@ -19,7 +19,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
 
     const alienInvadersRemoved = [];
     const [spaceshipIndex, setSpaceshipIndex] = useState(487);
-    const [laserIndex, setLaserIndex] = useState(spaceshipIndex + 25);
+    const [laserIndex, setLaserIndex] = useState(spaceshipIndex - 25);
     const [shootLaser, setShootLaser] = useState(false);
     const [gameLost, setGameLost] = useState(false);
     const [direction, setDirection] = useState(1);
@@ -35,7 +35,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
                     setSpaceshipIndex((prevIndex) => Math.min(prevIndex + 1, totalSquares - 1));
                 }
                 if (e.key === 'ArrowUp') {
-                  setLaserIndex((prevIndex) => Math.min(prevIndex + 25, 0));
+                  setLaserIndex((prevIndex) => Math.min(prevIndex - 25, laserIndex));
                   setShootLaser(true);
               }
             }
