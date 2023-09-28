@@ -21,6 +21,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
     const [spaceshipIndex, setSpaceshipIndex] = useState(487);
     const [laserIndex, setLaserIndex] = useState(spaceshipIndex + 25);
     const [shootLaser, setShootLaser] = useState(false);
+    const [gameLost, setGameLost] = useState(false);
     const [direction, setDirection] = useState(1);
 
 
@@ -52,10 +53,12 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
           // Calculate the new positions of alienInvaders
           const newAlienInvaders = [...alienInvaders];
           for (let i = 0; i < newAlienInvaders.length; i++) {
-            if (direction === 1) {
-              newAlienInvaders[i] += 1;
-            } else {
-              newAlienInvaders[i] -= 1;
+            if(!gameLost) {
+              if (direction === 1) {
+                newAlienInvaders[i] += 1;
+              } else {
+                newAlienInvaders[i] -= 1;
+              }
             }
           }
           const r = 0;
@@ -63,21 +66,27 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver }) => {
           // Check if they should change direction
           if (newAlienInvaders.some((invader) => rightEdge.includes(invader % numCols))) {
             setDirection((prevDirection) => -prevDirection);
-            for (let i = 0; i < newAlienInvaders.length; i++) {
-                newAlienInvaders[i] += 25;
+            if(!gameLost) {
+              for (let i = 0; i < newAlienInvaders.length; i++) {
+                  newAlienInvaders[i] += 25;
+              }
             }
         }
           const l = 24;
           const leftEdge = [l, l*2, l*3, l*4, l*5, l*6, l*7, l*8, l*9, l*10, l*11, l*12, l*13, l*14, l*15, l*16, l*17, l*18, l*19];
           if (newAlienInvaders.some((invader) => leftEdge.includes(invader % numCols))) {
-            setDirection((prevDirection) => -prevDirection);
-            for (let i = 0; i < newAlienInvaders.length; i++) {
-                newAlienInvaders[i] += 25;
+
+            if(!gameLost) {
+              setDirection((prevDirection) => -prevDirection);
+              for (let i = 0; i < newAlienInvaders.length; i++) {
+                  newAlienInvaders[i] += 25;
+              }
             }
           }
 
           if (newAlienInvaders.some((invader) => invader > 475)) {
             handleGameOver(); 
+            setGameLost(true);
           }
     
           // Update the alienInvaders state
