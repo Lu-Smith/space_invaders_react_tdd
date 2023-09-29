@@ -23,14 +23,24 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
     const [shootLaser, setShootLaser] = useState(false);
     const [gameLost, setGameLost] = useState(false);
     const [direction, setDirection] = useState(1);
-  
+    const squares: JSX.Element[]= [];
+
+
 
     useEffect(() => {
         setLaserIndex(spaceshipIndex-25);
     }, [spaceshipIndex]);
 
+    useEffect(() => {      
 
-    useEffect(() => {
+      function remove() {
+        for (let i = 0; i < alienInvaders.length; i++) {
+          const square = squares[alienInvaders[i]];
+          if (square instanceof HTMLElement) {
+            square.classList.remove('invader');
+          }
+        }
+      }
         const handleKeyDown = (e: KeyboardEvent | null ) => {
             if (e !== null) {
                 if (e.key === 'ArrowLeft') {
@@ -46,7 +56,11 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
                     setLaserIndex(prevIndex => Math.min(prevIndex - 25, laserIndex));
                     } else {
                       setLaserIndex(spaceshipIndex - 25);
-                    }                 
+                    }  
+                    if (alienInvaders.includes(laserIndex)) {
+                      remove();
+                      handleScore();
+                    }              
                   }
                 }, 10);
 
@@ -62,7 +76,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [totalSquares, laserIndex, spaceshipIndex]);
+    }, [totalSquares, laserIndex, spaceshipIndex, alienInvaders, squares]);
 
     useEffect(() => {
         const intervalId = setInterval(() => {
@@ -106,7 +120,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
             setShootLaser(false);
           }
     
-    
           setAlienInvaders(newAlienInvaders);
         }, 100);
     
@@ -115,21 +128,17 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         };
       }, [alienInvaders, direction, gameLost, handleGameOver]);
 
-      const squares: JSX.Element[]= [];
+ 
 
       for (let i = 0; i < totalSquares; i++) {
         let squareClass = 'GameBoard-square';
         let squareId = 'square';
-
+  
         const isInvader = alienInvaders.includes(i);
         const isSpaceship = spaceshipIndex === i;
         const isLaser = laserIndex === i;
-
-        if (alienInvaders[i] === laserIndex) {
-          squareClass = 'GameBoard-square';
-          squareId = 'square';
-          console.log(alienInvaders[i] = laserIndex)
-        } else if (isInvader && alienInvaders[i] !== laserIndex) {
+  
+        if (isInvader && laserIndex !== alienInvaders[i]) {
           squareClass += ' invader';
           squareId = 'invader';
         } else if (isSpaceship) {
@@ -138,11 +147,9 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         } else if (shootLaser && isLaser) {
             squareClass = 'GameBoard-square laser';
         } 
- 
+  
         squares.push(<div key={i} className={squareClass} data-testid={squareId}></div>);
       }
-
-      
       
   return (
     <div className="Game-board" data-testid="Game-board">

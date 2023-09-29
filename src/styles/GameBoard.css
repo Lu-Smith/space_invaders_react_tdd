@@ -31,3 +31,7 @@ background-color: rgb(3, 0, 1);
     background-color: red;
     border-radius: 50%;
 }
+
+.yellow {
+    background-color: rgb(200, 255, 0);
+}
