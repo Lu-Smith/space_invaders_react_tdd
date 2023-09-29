@@ -124,8 +124,12 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         const isInvader = alienInvaders.includes(i);
         const isSpaceship = spaceshipIndex === i;
         const isLaser = laserIndex === i;
-      
-        if (isInvader) {
+
+        if (alienInvaders[i] === laserIndex) {
+          squareClass = 'GameBoard-square';
+          squareId = 'square';
+          console.log(alienInvaders[i] = laserIndex)
+        } else if (isInvader && alienInvaders[i] !== laserIndex) {
           squareClass += ' invader';
           squareId = 'invader';
         } else if (isSpaceship) {
@@ -133,12 +137,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
           squareId = 'spaceship';
         } else if (shootLaser && isLaser) {
             squareClass = 'GameBoard-square laser';
-            if (laserIndex === alienInvaders[i]) {
-              squareClass = 'GameBoard-square';
-              squareId = 'square';
-
-            }
-          } 
+        } 
  
         squares.push(<div key={i} className={squareClass} data-testid={squareId}></div>);
       }
