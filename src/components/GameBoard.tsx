@@ -3,11 +3,11 @@ import '../styles/GameBoard.css';
 
 interface GameBoardProps {
     handleGameOver: () => void; 
-    handleScore: () => void;
+    handleHits: () => void;
   }
   
 
-const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleHits }) => {
     const numRows = 20; 
     const numCols = 25; 
     const totalSquares = numRows * numCols;
@@ -23,6 +23,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
     const [shootLaser, setShootLaser] = useState(false);
     const [gameLost, setGameLost] = useState(false);
     const [direction, setDirection] = useState(1);
+  
 
     useEffect(() => {
         setLaserIndex(spaceshipIndex-25);
@@ -111,7 +112,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         return () => {
           clearInterval(intervalId);
         };
-      }, [alienInvaders, handleGameOver, direction, gameLost]);
+      }, [alienInvaders, direction, gameLost, handleGameOver]);
 
       const squares: JSX.Element[]= [];
 
@@ -130,7 +131,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         if (isSpaceship) {
           squareClass = 'GameBoard-square spaceship';
           squareId = 'spaceship';
-       
         }
     
         if (shootLaser) {
@@ -141,12 +141,14 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
             if (isLaser === isInvader) {
               squareClass = 'GameBoard-square';
               squareId = 'square';
-              handleScore();
+              handleHits();
             }
           }
         }
         squares.push(<div key={i} className={squareClass} data-testid={squareId}></div>);
       }
+
+      
       
   return (
     <div className="Game-board" data-testid="Game-board">

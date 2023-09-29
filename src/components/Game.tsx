@@ -6,14 +6,22 @@ import '../styles/Game.css';
 const Game = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [hitTarget, setHitTarget] = useState(false);
 
   const handleGameOver = () => {
     setGameOver(true);
   };
 
   const handleScore = () => {
-    setScore(score + 1)
-  }
+    if (hitTarget) {
+      setScore((prevScore) => prevScore + 1);
+      setHitTarget(false);
+    }
+  };
+
+  const handleHits = () => {
+    setHitTarget(true);
+  };
 
   return (
     <div data-testid="Game-component" className='Game'>
@@ -27,7 +35,7 @@ const Game = () => {
       </header>
       <div className="Game-container" data-testid="game-container">
         {gameOver ? <h3>GameOver</h3> : null}
-        <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />
+        <GameBoard handleGameOver={handleGameOver} handleHits={handleHits} />
         <button className="Game-button" data-testid="game-button">pause</button>
       </div>
       <FooterComponent />
