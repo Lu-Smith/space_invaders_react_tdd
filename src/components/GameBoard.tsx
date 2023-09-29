@@ -25,6 +25,9 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
     const [gameLost, setGameLost] = useState(false);
     const [direction, setDirection] = useState(1);
 
+    useEffect(() => {
+        setLaserIndex(spaceshipIndex-25)
+    }, [spaceshipIndex]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent | null ) => {
@@ -35,22 +38,21 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
                 if (e.key === 'ArrowRight') {
                     setSpaceshipIndex((prevIndex) => Math.min(prevIndex + 1, totalSquares - 1));
                 }
-
                 const laserId = setInterval(() => {
                   if (e.key === 'ArrowUp') {
-                    setLaserIndex((prevIndex) => Math.min(prevIndex - 25, laserIndex));
                     setShootLaser(true);
+                    setLaserIndex((prevIndex) => Math.min(prevIndex - 25, laserIndex));
                   }
-   
                 }, 20);
 
-                return () => {
+                window.addEventListener('keyup', () => {
                   clearInterval(laserId);
-                };
-            }
+                });
+            }  
         };
 
         window.addEventListener('keydown', handleKeyDown);
+        console.log(shootLaser);
 
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
@@ -96,6 +98,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
           if (newAlienInvaders.some((invader) => invader > 475)) {
             handleGameOver(); 
             setGameLost(true);
+            setShootLaser(false);
           }
     
           // Update the alienInvaders state
@@ -108,7 +111,6 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         };
       }, alienInvaders);
 
-    
       for (let i = 0; i < totalSquares; i++) {
         const isInvader = alienInvaders.includes(i);
         const isSpaceship = spaceshipIndex === i;
