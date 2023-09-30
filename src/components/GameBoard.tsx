@@ -32,7 +32,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     }, [spaceshipIndex]);
 
     useEffect(() => {
-      if (pause === 'play') {
+      if (pause === 'pause') {
         const intervalId = setInterval(() => {
         // Calculate the new positions of alienInvaders
         const newAlienInvaders = [...alienInvaders];
@@ -72,6 +72,11 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
           handleGameOver(); 
           setGameLost(true);
           setShootLaser(false);
+          setAlienInvaders([
+            0,1,2,3,4,5,6,7,8,9,10,11,12,13,
+            26,27,28,29,30,31,32,33,34,35,36,37,
+            52,53,54,55,56,57,58,59,60,61
+        ]);
         }
   
         setAlienInvaders(newAlienInvaders);
