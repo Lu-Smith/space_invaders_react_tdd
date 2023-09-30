@@ -5,7 +5,8 @@ import GameBoard from './components/GameBoard';
 test('renders all components', () => {
     const handleGameOver = jest.fn(); 
     const handleScore = jest.fn();
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const pause = 'pause';
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
     const squares = screen.getAllByTestId('square');
     expect(squares).toHaveLength(463);
@@ -14,7 +15,8 @@ test('renders all components', () => {
 test('each square has the correct class', () => {
     const handleGameOver = jest.fn(); 
     const handleScore = jest.fn()
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const pause = 'pause';
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
     const squares = screen.getAllByTestId('square');
     
@@ -23,18 +25,22 @@ test('each square has the correct class', () => {
     });
 });
 
-it('renders the correct number of squares', () => {
-  const handleGameOver = jest.fn(); 
-  const handleScore = jest.fn();
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
-  const squares = screen.getAllByTestId('square');
-  expect(squares).toHaveLength(463); 
+test('renders the correct number of squares', () => {
+    const handleGameOver = jest.fn(); 
+    const handleScore = jest.fn();
+    const pause = 'pause';
+
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
+    const squares = screen.getAllByTestId('square');
+    expect(squares).toHaveLength(463); 
 });
 
 test('aliens ivaders are display in GameBoard', () => {
     const handleGameOver = jest.fn(); 
     const handleScore = jest.fn();
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const pause = 'pause';
+
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
     const allienInvaders = screen.getAllByTestId('invader');
     expect(allienInvaders).toHaveLength(36);
@@ -47,7 +53,9 @@ test('aliens ivaders are display in GameBoard', () => {
 test('the spaceship is diplayed in GameBoard', () => {
     const handleGameOver = jest.fn(); 
     const handleScore = jest.fn();
-   render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const pause = 'pause';
+
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
     const spaceship = screen.getByTestId('spaceship');
     expect(spaceship).toBeInTheDocument();
@@ -55,55 +63,60 @@ test('the spaceship is diplayed in GameBoard', () => {
 });
 
 test('move the spaceship in GameBoard after click on left or right arrow', async () => {
-  const handleGameOver = jest.fn(); 
-  const handleScore = jest.fn()
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const handleGameOver = jest.fn(); 
+    const handleScore = jest.fn();
+    const pause = 'pause';
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
-  const spaceshipElement = screen.getAllByTestId('spaceship');
+    const spaceshipElement = screen.getAllByTestId('spaceship');
 
-  fireEvent.keyDown(document, { key: 'ArrowLeft' });
+    fireEvent.keyDown(document, { key: 'ArrowLeft' });
 
-  const updatedSpaceshipElement = screen.getByTestId('spaceship');
-  expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
+    const updatedSpaceshipElement = screen.getByTestId('spaceship');
+    expect(updatedSpaceshipElement).not.toEqual(spaceshipElement); 
 
-  fireEvent.keyDown(document, { key: 'ArrowRight' });
-  fireEvent.keyDown(document, { key: 'ArrowRight' });
+    fireEvent.keyDown(document, { key: 'ArrowRight' });
+    fireEvent.keyDown(document, { key: 'ArrowRight' });
 
-  const finalSpaceshipElement = screen.getByTestId('spaceship');
-  expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
+    const finalSpaceshipElement = screen.getByTestId('spaceship');
+    expect(finalSpaceshipElement).not.toEqual(spaceshipElement); 
     
 }); 
 
 test('check if invaders are moving correctly in GameBoard', async () => {
-  const handleGameOver = jest.fn(); 
-  const handleScore = jest.fn();
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const handleGameOver = jest.fn(); 
+    const handleScore = jest.fn();
+    const pause = 'pause';
 
-  jest.useFakeTimers();
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
-  const initialInvaders = screen.getAllByTestId('invader');
+    jest.useFakeTimers();
 
-  jest.advanceTimersByTime(2000); 
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const initialInvaders = screen.getAllByTestId('invader');
 
-  const updatedinitialInvaders = screen.getAllByTestId('invader');
-  expect(updatedinitialInvaders).not.toEqual(initialInvaders); 
+    jest.advanceTimersByTime(2000); 
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
 
-  jest.advanceTimersByTime(2000); 
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const updatedinitialInvaders = screen.getAllByTestId('invader');
+    expect(updatedinitialInvaders).not.toEqual(initialInvaders); 
 
-  const finalinitialInvaders = screen.getAllByTestId('invader');
-  expect(finalinitialInvaders).not.toEqual(initialInvaders); 
+    jest.advanceTimersByTime(2000); 
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
+
+    const finalinitialInvaders = screen.getAllByTestId('invader');
+    expect(finalinitialInvaders).not.toEqual(initialInvaders); 
 }); 
 
 test('check if the spaceshuttle shoot laser correctly', async () => {
-  const handleGameOver = jest.fn(); 
-  const handleScore = jest.fn();
-  render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} />); 
+    const handleGameOver = jest.fn(); 
+    const handleScore = jest.fn();
+    const pause = 'pause';
 
-  const laserIndex = screen.getByTestId('laser');
-  const spaceshipElement = screen.getAllByTestId('spaceship');
-  expect(laserIndex).toEqual(spaceshipElement);
+    render(<GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />); 
+
+    const laserIndex = screen.getByTestId('laser');
+    const spaceshipElement = screen.getAllByTestId('spaceship');
+    expect(laserIndex).toEqual(spaceshipElement);
 }); 
 
 beforeEach(() => {

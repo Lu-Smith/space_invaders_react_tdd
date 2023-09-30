@@ -4,11 +4,12 @@ import '../styles/GameBoard.css';
 interface GameBoardProps {
     handleGameOver: () => void; 
     handleScore: () => void;
+    pause: string;
   }
   
 
 
-const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) => {
+const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, pause }) => {
     const numRows = 20; 
     const numCols = 25; 
     const totalSquares = numRows * numCols;
@@ -31,7 +32,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
     }, [spaceshipIndex]);
 
     useEffect(() => {
-      const intervalId = setInterval(() => {
+      if (pause === 'play') {
+        const intervalId = setInterval(() => {
         // Calculate the new positions of alienInvaders
         const newAlienInvaders = [...alienInvaders];
         for (let i = 0; i < newAlienInvaders.length; i++) {
@@ -53,7 +55,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
                 newAlienInvaders[i] += 25;
             }
           }
-      }
+        }
         const l = 24;
         const leftEdge = [l, l*2, l*3, l*4, l*5, l*6, l*7, l*8, l*9, l*10, l*11, l*12, l*13, l*14, l*15, l*16, l*17, l*18, l*19];
         if (newAlienInvaders.some((invader) => leftEdge.includes(invader % numCols))) {
@@ -74,10 +76,11 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
   
         setAlienInvaders(newAlienInvaders);
       }, 100);
+    
   
       return () => {
         clearInterval(intervalId);
-      };
+      };}
     }, [alienInvaders, direction, gameLost, handleGameOver]);
 
     useEffect(() => {      
