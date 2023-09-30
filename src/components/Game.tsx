@@ -10,7 +10,7 @@ const Game = () => {
   const [newTimer, setNewTimer] = useState(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
-  let timerInterval;
+  let timerInterval: NodeJS.Timer;;
 
   useEffect(() => {
     handleTimer();
