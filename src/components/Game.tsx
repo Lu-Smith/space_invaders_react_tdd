@@ -6,7 +6,6 @@ import '../styles/Game.css';
 const Game = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
-  const [newGame, setNewGame] = useState(false);
   const [newTimer, setNewTimer] = useState(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
@@ -19,39 +18,46 @@ const Game = () => {
   const handleTimer = () => {
     timerInterval = setInterval(() => {
       setNewTimer((newTimer) => newTimer + 1)
+      console.log(newTimer)
     }, 1000)
+
+   
 
     if (pause === 'pause') {
       clearInterval(timerInterval);
-      setPause('play');
+
     } else if (pause === 'play') {
       timerInterval = setInterval(() => {
         setNewTimer((prevTimer) => prevTimer + 1);
       }, 1000);
-      setPause('pause');
+
     }
 
+    const minutes = Math.floor(newTimer/60);
     if (newTimer < 10) {
-      setTimer(`0:0${newTimer}`)
+      setTimer(`00:0${newTimer}`)
     } else if (newTimer > 10 && newTimer < 60) {
-      setTimer(`0:${newTimer}`)
-    } else if (newTimer > 60 && newTimer < 600 && (newTimer - newTimer/60) < 10 ) {
-      setTimer(`0(${newTimer}/60):0(${newTimer} - Math.floor(${newTimer/60}))`)
+      setTimer(`00:${newTimer}`)
+    } else if (newTimer > 60 && newTimer < 600 && (newTimer - Math.floor(newTimer/60)) < 10 ) {
+      setTimer(`0${minutes}:0(${newTimer} - ${minutes})`)
     } else if (newTimer > 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
-      setTimer(`(${newTimer}/60):(${newTimer} - Math.floor(${newTimer/60}))`)
+      setTimer(`${minutes}:(${newTimer} - ${minutes})`)
     }
   };
 
 
-
   const handleNewGame = () => {
     clearInterval(timerInterval);
-    setNewGame(true);
+    setPause('pause');
     setGameOver(false);
     setScore(0);
     setNewTimer(0);
     handleTimer();
   };
+
+  if (pause === 'new game') {
+    handleNewGame();
+  }
 
   const handleGameOver = () => {
     setGameOver(true);
