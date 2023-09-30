@@ -6,29 +6,30 @@ import '../styles/Game.css';
 const Game = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
-  const [newTimer, setNewTimer] = useState(0);
+  const [newTimer, setNewTimer] = useState<number>(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
 
-  const handleTimer = () => {
+  const handleTimer = (newTimer:number) => {
     const minutes = Math.floor(newTimer/60);
     if (newTimer < 10) {
       setTimer(`00:0${newTimer}`)
-    } else if (newTimer > 10 && newTimer < 60) {
+    } else if (newTimer >= 10 && newTimer < 60) {
       setTimer(`00:${newTimer}`)
-    } else if (newTimer > 60 && newTimer < 600 && (newTimer - Math.floor(newTimer/60)) < 10 ) {
+    } else if (newTimer >= 60 && newTimer < 600 && (newTimer - Math.floor(newTimer/60)) < 10 ) {
       setTimer(`0${minutes}:0(${newTimer} - ${minutes})`)
-    } else if (newTimer > 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
+    } else if (newTimer >= 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
       setTimer(`${minutes}:(${newTimer} - ${minutes})`)
     }
-    console.log(newTimer)
-    console.log('timer', timer)
   };
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
-      setNewTimer((prevTimer) => prevTimer + 1);
-      handleTimer();
+      setNewTimer((prevTimer) => {
+        const newTimer = prevTimer + 1;
+        handleTimer(newTimer); // Pass the updated value to handleTimer
+        return newTimer;
+      });
     }, 1000); 
 
   
@@ -72,7 +73,7 @@ const Game = () => {
     <div data-testid="Game-component" className='Game'>
       <header className="Game-header" data-testid="game-header">
         <div className="Game-timer-container" data-testid="timer-container">
-          {timer} {newTimer}
+          {timer}
         </div>
         <div className="Game-score-container" data-testid="score-container">
           Score: {score}
