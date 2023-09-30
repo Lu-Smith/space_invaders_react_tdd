@@ -6,9 +6,42 @@ import '../styles/Game.css';
 const Game = () => {
   const [gameOver, setGameOver] = useState(false);
   const [score, setScore] = useState(0);
+  const [newGame, setNewGame] = useState(false);
+  const [newTimer, setNewTimer] = useState(0);
+  const [timer, setTimer] = useState('00:00');
+  const [pause, setPause] = useState('pause');
+  const timerInterval = setInterval(() => {
+    setNewTimer((newTimer) => newTimer + 1)
+  }, 1000)
+
+  const handleTimer = () => {
+ 
+
+    if (newTimer < 10) {
+      setTimer(`0:0${newTimer}`)
+    } else if (newTimer > 10 && newTimer < 60) {
+      setTimer(`0:${newTimer}`)
+    } else if (newTimer > 60 && newTimer < 600 && (newTimer - newTimer/60) < 10 ) {
+      setTimer(`0(${newTimer}/60):0(${newTimer} - ${newTimer/60})`)
+    } else if (newTimer > 600 && (newTimer - newTimer/60) > 10 ) {
+      setTimer(`(${newTimer}/60):(${newTimer} - ${newTimer/60})`)
+    }
+  };
+
+
+
+  const handleNewGame = () => {
+    clearInterval(timerInterval);
+    setNewGame(true);
+    setGameOver(false);
+    setScore(0);
+    setNewTimer(0);
+    handleTimer();
+  };
 
   const handleGameOver = () => {
     setGameOver(true);
+    setScore(0);
   };
 
   const handleScore = () => {
@@ -19,7 +52,7 @@ const Game = () => {
     <div data-testid="Game-component" className='Game'>
       <header className="Game-header" data-testid="game-header">
         <div className="Game-timer-container" data-testid="timer-container">
-          00:00
+          {timer}
         </div>
         <div className="Game-score-container" data-testid="score-container">
           Score: {score}

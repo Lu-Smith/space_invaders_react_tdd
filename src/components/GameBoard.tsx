@@ -7,6 +7,7 @@ interface GameBoardProps {
   }
   
 
+
 const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) => {
     const numRows = 20; 
     const numCols = 25; 
@@ -25,11 +26,59 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
     const [direction, setDirection] = useState(1);
     const squares: JSX.Element[]= [];
 
-
-
     useEffect(() => {
         setLaserIndex(spaceshipIndex-25);
     }, [spaceshipIndex]);
+
+    useEffect(() => {
+      const intervalId = setInterval(() => {
+        // Calculate the new positions of alienInvaders
+        const newAlienInvaders = [...alienInvaders];
+        for (let i = 0; i < newAlienInvaders.length; i++) {
+          if(!gameLost) {
+            if (direction === 1) {
+              newAlienInvaders[i] += 1;
+            } else {
+              newAlienInvaders[i] -= 1;
+            }
+          }
+        }
+        const r = 0;
+        const rightEdge = [r, r+(25*1), r+(25*2), r+(25*3), r+(25*4), r+(25*5), r+(25*6), r+(25*7), r+(25*8), r+(25*9), r+(25*10), r+(25*11), r+(25*12), r+(25*13), r+(25*14), r+(25*15), r+(25*16), r+(25*17), r+(25*18)];
+        // Check if they should change direction
+        if (newAlienInvaders.some((invader) => rightEdge.includes(invader % numCols))) {
+          setDirection((prevDirection) => -prevDirection);
+          if(!gameLost) {
+            for (let i = 0; i < newAlienInvaders.length; i++) {
+                newAlienInvaders[i] += 25;
+            }
+          }
+      }
+        const l = 24;
+        const leftEdge = [l, l*2, l*3, l*4, l*5, l*6, l*7, l*8, l*9, l*10, l*11, l*12, l*13, l*14, l*15, l*16, l*17, l*18, l*19];
+        if (newAlienInvaders.some((invader) => leftEdge.includes(invader % numCols))) {
+
+          if(!gameLost) {
+            setDirection((prevDirection) => -prevDirection);
+            for (let i = 0; i < newAlienInvaders.length; i++) {
+                newAlienInvaders[i] += 25;
+            }
+          }
+        }
+
+        if (newAlienInvaders.some((invader) => invader > 475)) {
+          handleGameOver(); 
+          setGameLost(true);
+          setShootLaser(false);
+        }
+  
+        setAlienInvaders(newAlienInvaders);
+      }, 100);
+  
+      return () => {
+        clearInterval(intervalId);
+      };
+    }, [alienInvaders, direction, gameLost, handleGameOver]);
 
     useEffect(() => {      
 
@@ -76,59 +125,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore }) =>
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [totalSquares, laserIndex, spaceshipIndex, alienInvaders, squares]);
+    }, [totalSquares, laserIndex, spaceshipIndex, alienInvaders, handleScore]);
 
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-          // Calculate the new positions of alienInvaders
-          const newAlienInvaders = [...alienInvaders];
-          for (let i = 0; i < newAlienInvaders.length; i++) {
-            if(!gameLost) {
-              if (direction === 1) {
-                newAlienInvaders[i] += 1;
-              } else {
-                newAlienInvaders[i] -= 1;
-              }
-            }
-          }
-          const r = 0;
-          const rightEdge = [r, r+(25*1), r+(25*2), r+(25*3), r+(25*4), r+(25*5), r+(25*6), r+(25*7), r+(25*8), r+(25*9), r+(25*10), r+(25*11), r+(25*12), r+(25*13), r+(25*14), r+(25*15), r+(25*16), r+(25*17), r+(25*18)];
-          // Check if they should change direction
-          if (newAlienInvaders.some((invader) => rightEdge.includes(invader % numCols))) {
-            setDirection((prevDirection) => -prevDirection);
-            if(!gameLost) {
-              for (let i = 0; i < newAlienInvaders.length; i++) {
-                  newAlienInvaders[i] += 25;
-              }
-            }
-        }
-          const l = 24;
-          const leftEdge = [l, l*2, l*3, l*4, l*5, l*6, l*7, l*8, l*9, l*10, l*11, l*12, l*13, l*14, l*15, l*16, l*17, l*18, l*19];
-          if (newAlienInvaders.some((invader) => leftEdge.includes(invader % numCols))) {
-
-            if(!gameLost) {
-              setDirection((prevDirection) => -prevDirection);
-              for (let i = 0; i < newAlienInvaders.length; i++) {
-                  newAlienInvaders[i] += 25;
-              }
-            }
-          }
-
-          if (newAlienInvaders.some((invader) => invader > 475)) {
-            handleGameOver(); 
-            setGameLost(true);
-            setShootLaser(false);
-          }
-    
-          setAlienInvaders(newAlienInvaders);
-        }, 100);
-    
-        return () => {
-          clearInterval(intervalId);
-        };
-      }, [alienInvaders, direction, gameLost, handleGameOver]);
-
- 
 
       for (let i = 0; i < totalSquares; i++) {
         let squareClass = 'GameBoard-square';
