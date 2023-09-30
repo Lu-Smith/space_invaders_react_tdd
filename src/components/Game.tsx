@@ -9,37 +9,42 @@ const Game = () => {
   const [newTimer, setNewTimer] = useState(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
-  let timerInterval: NodeJS.Timer;;
 
-  // useEffect(() => {
-  //   handleTimer();
-  // }, []);
+  const handleTimer = () => {
+    const minutes = Math.floor(newTimer/60);
+    if (newTimer < 10) {
+      setTimer(`00:0${newTimer}`)
+    } else if (newTimer > 10 && newTimer < 60) {
+      setTimer(`00:${newTimer}`)
+    } else if (newTimer > 60 && newTimer < 600 && (newTimer - Math.floor(newTimer/60)) < 10 ) {
+      setTimer(`0${minutes}:0(${newTimer} - ${minutes})`)
+    } else if (newTimer > 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
+      setTimer(`${minutes}:(${newTimer} - ${minutes})`)
+    }
+    console.log(newTimer)
+    console.log('timer', timer)
+  };
 
-  // const handleTimer = () => {
-  //   timerInterval = setInterval(() => {
-  //     setNewTimer((newTimer) => newTimer + 1)
-  //     console.log(newTimer)
-  //   }, 1000)
+  useEffect(() => {
+    const timerInterval = setInterval(() => {
+      setNewTimer((prevTimer) => prevTimer + 1);
+      handleTimer();
+    }, 1000); 
+
+  
+
+    return () => {
+      clearInterval(timerInterval);
+    };
+  }, []);
 
 
-  //   const minutes = Math.floor(newTimer/60);
-  //   if (newTimer < 10) {
-  //     setTimer(`00:0${newTimer}`)
-  //   } else if (newTimer > 10 && newTimer < 60) {
-  //     setTimer(`00:${newTimer}`)
-  //   } else if (newTimer > 60 && newTimer < 600 && (newTimer - Math.floor(newTimer/60)) < 10 ) {
-  //     setTimer(`0${minutes}:0(${newTimer} - ${minutes})`)
-  //   } else if (newTimer > 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
-  //     setTimer(`${minutes}:(${newTimer} - ${minutes})`)
-  //   }
-  // };
 
   const handleNewGame = () => {
     setPause('pause');
     setGameOver(false);
     setScore(0);
     setNewTimer(0);
-    // handleTimer();
   };
 
   const handleGameOver = () => {
@@ -53,15 +58,12 @@ const Game = () => {
   };
 
   const handlePauseClick = () => {
-    console.log(pause)
     if (pause === 'play') {
-      clearInterval(timerInterval);
       setPause('pause');
     } else if (pause === 'try again') {
-      // handleNewGame();
+      handleNewGame();
       setPause('pause');
     } else if (pause === 'pause') {
-      handleNewGame();
       setPause('play');
     }
   };
@@ -70,7 +72,7 @@ const Game = () => {
     <div data-testid="Game-component" className='Game'>
       <header className="Game-header" data-testid="game-header">
         <div className="Game-timer-container" data-testid="timer-container">
-          {timer}
+          {timer} {newTimer}
         </div>
         <div className="Game-score-container" data-testid="score-container">
           Score: {score}
