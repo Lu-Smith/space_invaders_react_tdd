@@ -10,25 +10,28 @@ const Game = () => {
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
 
-  const handleTimer = (newTimer:number) => {
-    const minutes = Math.floor(newTimer/60);
-    if (newTimer < 10) {
-      setTimer(`00:0${newTimer}`)
-    } else if (newTimer >= 10 && newTimer < 60) {
-      setTimer(`00:${newTimer}`)
-    } else if (newTimer >= 60 && newTimer < 600 && (newTimer - Math.floor(newTimer/60)) < 10 ) {
-      setTimer(`0${minutes}:0(${newTimer} - ${minutes})`)
-    } else if (newTimer >= 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
-      setTimer(`${minutes}:(${newTimer} - ${minutes})`)
+  const handleTimer = (updatedNewTimer: number) => {
+    const minutes = Math.floor(updatedNewTimer/60);
+    if (newTimer === 0) {
+      setTimer('00:00')
+    };
+    if (updatedNewTimer < 10) {
+      setTimer(`00:0${updatedNewTimer}`)
+    } else if (updatedNewTimer >= 10 && updatedNewTimer < 60) {
+      setTimer(`00:${updatedNewTimer}`)
+    } else if (updatedNewTimer >= 60 && updatedNewTimer < 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) < 10 ) {
+      setTimer(`0${minutes}:0(${updatedNewTimer} - ${minutes})`)
+    } else if (updatedNewTimer >= 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) > 10 ) {
+      setTimer(`${minutes}:(${updatedNewTimer} - ${minutes})`)
     }
   };
 
   useEffect(() => {
     const timerInterval = setInterval(() => {
       setNewTimer((prevTimer) => {
-        const newTimer = prevTimer + 1;
-        handleTimer(newTimer); // Pass the updated value to handleTimer
-        return newTimer;
+        const updatedNewTimer = prevTimer + 1;
+        handleTimer(updatedNewTimer); 
+        return updatedNewTimer;
       });
     }, 1000); 
 
