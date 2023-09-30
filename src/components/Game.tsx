@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import FooterComponent from './FooterComponent';
 import GameBoard from './GameBoard';
 import '../styles/Game.css';
@@ -10,21 +10,35 @@ const Game = () => {
   const [newTimer, setNewTimer] = useState(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
-  const timerInterval = setInterval(() => {
-    setNewTimer((newTimer) => newTimer + 1)
-  }, 1000)
+  let timerInterval;
+
+  useEffect(() => {
+    handleTimer();
+  }, []);
 
   const handleTimer = () => {
- 
+    timerInterval = setInterval(() => {
+      setNewTimer((newTimer) => newTimer + 1)
+    }, 1000)
+
+    if (pause === 'pause') {
+      clearInterval(timerInterval);
+      setPause('play');
+    } else if (pause === 'play') {
+      timerInterval = setInterval(() => {
+        setNewTimer((prevTimer) => prevTimer + 1);
+      }, 1000);
+      setPause('pause');
+    }
 
     if (newTimer < 10) {
       setTimer(`0:0${newTimer}`)
     } else if (newTimer > 10 && newTimer < 60) {
       setTimer(`0:${newTimer}`)
     } else if (newTimer > 60 && newTimer < 600 && (newTimer - newTimer/60) < 10 ) {
-      setTimer(`0(${newTimer}/60):0(${newTimer} - ${newTimer/60})`)
-    } else if (newTimer > 600 && (newTimer - newTimer/60) > 10 ) {
-      setTimer(`(${newTimer}/60):(${newTimer} - ${newTimer/60})`)
+      setTimer(`0(${newTimer}/60):0(${newTimer} - Math.floor(${newTimer/60}))`)
+    } else if (newTimer > 600 && (newTimer - Math.floor(newTimer/60)) > 10 ) {
+      setTimer(`(${newTimer}/60):(${newTimer} - Math.floor(${newTimer/60}))`)
     }
   };
 
