@@ -42,8 +42,8 @@ test('handles the timer correctly', () => {
   const timerContainer = screen.getByTestId('timer-container');
 
   setTimeout(() => {
-    fireEvent.click(gameButton); // Pause the timer after a delay
+    fireEvent.click(gameButton); // Pause the timer 
     const timerText = timerContainer.textContent;
     expect(timerText).toMatch(/\d{2}:\d{2}/); // Should match HH:MM format
-  }, 2000); // Pause after 2 seconds
+  }, 2000); 
 });
