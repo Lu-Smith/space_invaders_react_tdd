@@ -58,7 +58,6 @@ const Game = () => {
 
   const handleGameOver = () => {
     setGameOver(true);
-    setScore(0);
     setPause('try again');
   };
 
@@ -88,7 +87,7 @@ const Game = () => {
         </div>
       </header>
       <div className="Game-container" data-testid="game-container">
-        {gameOver ? <h3>GameOver</h3> : null}
+        {gameOver ? <h3>Game Over</h3> : null}
         <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />
         <button 
         onClick={handlePauseClick} 

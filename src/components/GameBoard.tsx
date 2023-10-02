@@ -7,8 +7,6 @@ interface GameBoardProps {
     pause: string;
   }
   
-
-
 const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, pause }) => {
     const numRows = 20; 
     const numCols = 25; 
@@ -67,7 +65,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
             }
           }
         }
-
+        setAlienInvaders(newAlienInvaders);
         if (newAlienInvaders.some((invader) => invader > 475)) {
           handleGameOver(); 
           setGameLost(true);
@@ -79,8 +77,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
         ]);
         }
   
-        setAlienInvaders(newAlienInvaders);
-      }, 100);
+     
+      }, 300);
     
   
       return () => {
