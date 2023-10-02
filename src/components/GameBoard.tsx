@@ -13,10 +13,10 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     const totalSquares = numRows * numCols;
  
     const [alienInvaders, setAlienInvaders] = useState([
-        0,1,2,3,4,5,6,7,8,9,10,11,12,13,
-        26,27,28,29,30,31,32,33,34,35,36,37,
-        52,53,54,55,56,57,58,59,60,61
-    ])
+      0,1,2,3,4,5,6,7,8,9,10,11,12,13,
+      26,27,28,29,30,31,32,33,34,35,36,37,
+      52,53,54,55,56,57,58,59,60,61
+  ])
     const [newAlienInvaders, setNewAlienInvaders] = useState([...alienInvaders]);
 
     const [spaceshipIndex, setSpaceshipIndex] = useState(487);
@@ -32,6 +32,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
 
     useEffect(() => {
       if (pause === 'pause') {
+        setGameLost(false);
+        console.log(newAlienInvaders);
         const intervalId = setInterval(() => {
         // Calculate the new positions of alienInvaders
         for (let i = 0; i < newAlienInvaders.length; i++) {
@@ -42,7 +44,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
               newAlienInvaders[i] -= 1;
             }
           }
-        }
+        } 
         const r = 0;
         const rightEdge = [r, r+(25*1), r+(25*2), r+(25*3), r+(25*4), r+(25*5), r+(25*6), r+(25*7), r+(25*8), r+(25*9), r+(25*10), r+(25*11), r+(25*12), r+(25*13), r+(25*14), r+(25*15), r+(25*16), r+(25*17), r+(25*18)];
         // Check if they should change direction
@@ -70,21 +72,16 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
           handleGameOver(); 
           setGameLost(true);
           setShootLaser(false);
-          setNewAlienInvaders([
-            0,1,2,3,4,5,6,7,8,9,10,11,12,13,
-            26,27,28,29,30,31,32,33,34,35,36,37,
-            52,53,54,55,56,57,58,59,60,61
-        ]);
         }
-  
-     
-      }, 300);
+      }, 100);
     
   
       return () => {
         clearInterval(intervalId);
-      };}
-    }, [alienInvaders, direction, gameLost, handleGameOver]);
+      };
+    } 
+
+    }, [alienInvaders, direction, gameLost, handleGameOver, pause, newAlienInvaders]);
 
     useEffect(() => {      
 
