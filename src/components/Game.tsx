@@ -30,7 +30,7 @@ const Game = () => {
     const timerInterval = setInterval(() => {
       setNewTimer((prevTimer) => {
 
-        if (pause === 'play' && timerInterval !== null) {
+        if ((pause === 'play' || pause === 'try again') && timerInterval !== null) {
           // Pause the timer interval
           const updatedNewTimer = prevTimer;
           clearInterval(timerInterval);
