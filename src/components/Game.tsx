@@ -9,11 +9,6 @@ const Game = () => {
   const [newTimer, setNewTimer] = useState<number>(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
-  const [alienInvaders, setAlienInvaders] = useState([
-    0,1,2,3,4,5,6,7,8,9,10,11,12,13,
-    26,27,28,29,30,31,32,33,34,35,36,37,
-    52,53,54,55,56,57,58,59,60,61
-])
 
   const handleTimer = (updatedNewTimer: number) => {
     const minutes = Math.floor(updatedNewTimer/60);
@@ -59,11 +54,6 @@ const Game = () => {
     setGameOver(false);
     setScore(0);
     setNewTimer(0);
-    setAlienInvaders([
-      0,1,2,3,4,5,6,7,8,9,10,11,12,13,
-      26,27,28,29,30,31,32,33,34,35,36,37,
-      52,53,54,55,56,57,58,59,60,61
-  ])
   };
 
   const handleGameOver = () => {
@@ -98,7 +88,7 @@ const Game = () => {
       </header>
       <div className="Game-container" data-testid="game-container">
         {gameOver ? <h3>Game Over</h3> : null}
-        <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} alienInvaders={alienInvaders}/>
+        <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />
         <button 
         onClick={handlePauseClick} 
         className="Game-button" 

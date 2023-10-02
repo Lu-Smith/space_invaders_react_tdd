@@ -30,10 +30,21 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
         setLaserIndex(spaceshipIndex-25);
     }, [spaceshipIndex]);
 
+    const resetInvaders = () => {
+      const initialAlienInvaders = [
+        0,1,2,3,4,5,6,7,8,9,10,11,12,13,
+        26,27,28,29,30,31,32,33,34,35,36,37,
+        52,53,54,55,56,57,58,59,60,61
+      ];
+      
+      setAlienInvaders(initialAlienInvaders);
+      setNewAlienInvaders([...initialAlienInvaders]);
+      console.log(newAlienInvaders)
+      setGameLost(false);
+    }
+
     useEffect(() => {
-      if (pause === 'pause') {
-        setGameLost(false);
-        console.log(newAlienInvaders);
+      if (pause === 'pause' && gameLost === false) {        
         const intervalId = setInterval(() => {
         // Calculate the new positions of alienInvaders
         for (let i = 0; i < newAlienInvaders.length; i++) {
@@ -72,10 +83,10 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
           handleGameOver(); 
           setGameLost(true);
           setShootLaser(false);
+          clearInterval(intervalId);
         }
       }, 100);
     
-  
       return () => {
         clearInterval(intervalId);
       };
@@ -83,8 +94,14 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
 
     }, [alienInvaders, direction, gameLost, handleGameOver, pause, newAlienInvaders]);
 
-    useEffect(() => {      
+    useEffect(() => {
+      if (gameLost) {
+        resetInvaders();
+      }
+    }, [gameLost]);
 
+
+    useEffect(() => {      
       function remove() {
         for (let i = 0; i < alienInvaders.length; i++) {
           const square = squares[alienInvaders[i]];
