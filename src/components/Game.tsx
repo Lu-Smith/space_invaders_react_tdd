@@ -29,20 +29,25 @@ const Game = () => {
   useEffect(() => {
     const timerInterval = setInterval(() => {
       setNewTimer((prevTimer) => {
-        const updatedNewTimer = prevTimer + 1;
-        handleTimer(updatedNewTimer); 
-        return updatedNewTimer;
+
+        if (pause === 'play' && timerInterval !== null) {
+          // Pause the timer interval
+          const updatedNewTimer = prevTimer;
+          clearInterval(timerInterval);
+          handleTimer(updatedNewTimer); 
+          return updatedNewTimer;
+        } else {
+          const updatedNewTimer = prevTimer + 1;
+          handleTimer(updatedNewTimer); 
+          return updatedNewTimer;
+        }
       });
     }, 1000); 
-
-  
 
     return () => {
       clearInterval(timerInterval);
     };
-  }, []);
-
-
+  }, [pause]);
 
   const handleNewGame = () => {
     setPause('pause');
