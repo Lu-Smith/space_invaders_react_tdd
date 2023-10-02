@@ -13,19 +13,37 @@ test('renders all components', () => {
   expect(timerElement).toBeInTheDocument();
   const scoreContainer = screen.getByTestId('score-container');
   expect(scoreContainer).toBeInTheDocument();
-  const scoreElement = screen.getByText('score');
+  const scoreElement = screen.getByText('Score: 0');
   expect(scoreElement).toBeInTheDocument();
   const gameContainer = screen.getByTestId('game-container');
   expect(gameContainer).toBeInTheDocument();
-  const GameBoard = screen.getByTestId('Game-board');
-  expect(GameBoard).toBeInTheDocument();
+  const GameBoardComponent = screen.getByTestId('Game-board');
+  expect(GameBoardComponent).toBeInTheDocument();
   const buttonContainer = screen.getByTestId('game-button');
   expect(buttonContainer).toBeInTheDocument();
   const buttonElement = screen.getByText('pause');
   expect(buttonElement).toBeInTheDocument();
 
-  const footerComponent = screen.getByTestId('Footer-component');
-  expect(footerComponent).toBeInTheDocument();
-
-
+  const FooterComponent = screen.getByTestId('Footer-component');
+  expect(FooterComponent).toBeInTheDocument();
 });
+
+test('handles the game button correctly', () => {
+  render(<Game />);
+  const gameButton = screen.getByTestId('game-button');
+  fireEvent.click(gameButton);
+  expect(gameButton).toHaveTextContent('play');
+    
+});
+
+// test('handles the timer correctly', () => {
+//   render(<Game />);
+//   const gameButton = screen.getByTestId('game-button');
+//   const timerContainer = screen.getByTestId('timer-container');
+
+//   setTimeout(() => {
+//     fireEvent.click(gameButton); // Pause the timer after a delay
+//     const timerText = timerContainer.textContent;
+//     expect(timerText).toMatch(/\d{2}:\d{2}/); // Should match HH:MM format
+//   }, 2000); // Pause after 2 seconds
+// });
