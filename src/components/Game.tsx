@@ -5,29 +5,30 @@ import '../styles/Game.css';
 
 const Game = () => {
   const [gameOver, setGameOver] = useState(false);
-  const [gameOverMessage, setGameOverMessage] = useState('Game Over');
+  const [gameOverMessage, setGameOverMessage] = useState('');
   const [score, setScore] = useState(0);
   const [newTimer, setNewTimer] = useState<number>(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
 
-  const handleTimer = (updatedNewTimer: number) => {
-    const minutes = Math.floor(updatedNewTimer/60);
-    if (newTimer === 0) {
-      setTimer('00:00')
-    };
-    if (updatedNewTimer < 10) {
-      setTimer(`00:0${updatedNewTimer}`)
-    } else if (updatedNewTimer >= 10 && updatedNewTimer < 60) {
-      setTimer(`00:${updatedNewTimer}`)
-    } else if (updatedNewTimer >= 60 && updatedNewTimer < 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) < 10 ) {
-      setTimer(`0${minutes}:0(${updatedNewTimer} - ${minutes})`)
-    } else if (updatedNewTimer >= 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) > 10 ) {
-      setTimer(`${minutes}:(${updatedNewTimer} - ${minutes})`)
-    }
-  };
 
   useEffect(() => {
+    const handleTimer = (updatedNewTimer: number) => {
+      const minutes = Math.floor(updatedNewTimer/60);
+      if (newTimer === 0) {
+        setTimer('00:00')
+      };
+      if (updatedNewTimer < 10) {
+        setTimer(`00:0${updatedNewTimer}`)
+      } else if (updatedNewTimer >= 10 && updatedNewTimer < 60) {
+        setTimer(`00:${updatedNewTimer}`)
+      } else if (updatedNewTimer >= 60 && updatedNewTimer < 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) < 10 ) {
+        setTimer(`0${minutes}:0(${updatedNewTimer} - ${minutes})`)
+      } else if (updatedNewTimer >= 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) > 10 ) {
+        setTimer(`${minutes}:(${updatedNewTimer} - ${minutes})`)
+      }
+    };
+
     const timerInterval = setInterval(() => {
       setNewTimer((prevTimer) => {
 
@@ -48,13 +49,14 @@ const Game = () => {
     return () => {
       clearInterval(timerInterval);
     };
-  }, [pause, handleTimer]);
+  }, [pause, newTimer]);
 
   const handleNewGame = () => {
     setPause('pause');
     setGameOver(false);
     setScore(0);
     setNewTimer(0);
+    setGameOverMessage('');
   };
 
   const handleGameOver = () => {
@@ -65,9 +67,9 @@ const Game = () => {
   useEffect(() => {
     if (score === 100) {
       handleGameOver();
-      setGameOverMessage('Well done, you won!')
+      setGameOverMessage('Well done, you won!');
     } else  if (score !== 100 && gameOver) {
-      setGameOverMessage('Game Over! You Lost!')
+      setGameOverMessage('Game Over! You Lost!');
     }
   }, [score, gameOver])
 

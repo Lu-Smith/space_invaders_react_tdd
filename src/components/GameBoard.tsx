@@ -72,22 +72,22 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     setNewAlienInvaders([...initialAlienInvaders]);
   }
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      if (gameOver) {
-        resetInvaders();
-      }
-    }, 1500)
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     if (gameOver) {
+  //       resetInvaders();
+  //     }
+  //   }, 1500)
     
-    return () => {
-          clearInterval(intervalId);
-    };
-  }, [gameOver])
+  //   return () => {
+  //         clearInterval(intervalId);
+  //   };
+  // }, [gameOver])
 
   useEffect(() => {
-    console.log(newAlienInvaders);
+    console.log(gameOver);
     
-    if (pause === 'pause') {        
+    if (pause === 'pause' && !gameOver) {        
       const intervalId = setInterval(() => {
       // Calculate the new positions of alienInvaders
          
@@ -176,7 +176,8 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
       return () => {
           window.removeEventListener('keydown', handleKeyDown);
       };
-  }, [totalSquares, laserIndex, spaceshipIndex, alienInvaders, handleScore, newAlienInvaders]);
+
+  }, [totalSquares, laserIndex, newAlienInvaders]);
 
   return (
     <div className="Game-board" data-testid="Game-board">
