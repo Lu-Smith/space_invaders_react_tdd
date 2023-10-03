@@ -139,7 +139,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     useEffect (() => {
       const newScore = alienInvaders.length - newAlienInvaders.length;
       handleScore(newScore);
-    }, [newAlienInvaders])
+    }, [newAlienInvaders, newAlienInvaders.length, handleScore, alienInvaders.length])
 
 
     useEffect(() => {   
