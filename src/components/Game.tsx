@@ -61,8 +61,8 @@ const Game = () => {
     setPause('try again');
   };
 
-  const handleScore = () => {
-      setScore((prevScore) => prevScore + 1);
+  const handleScore = (newScore: number) => {
+      setScore((prevScore) => prevScore + newScore);
   };
 
   const handlePauseClick = () => {
