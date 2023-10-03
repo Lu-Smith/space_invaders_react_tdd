@@ -62,7 +62,7 @@ const Game = () => {
   };
 
   const handleScore = (newScore: number) => {
-      setScore((prevScore) => prevScore + newScore);
+      setScore(Math.floor(newScore/36*100));
   };
 
   const handlePauseClick = () => {
@@ -83,7 +83,7 @@ const Game = () => {
           {timer}
         </div>
         <div className="Game-score-container" data-testid="score-container">
-          Score: {score}
+          Score: {score}%
         </div>
       </header>
       <div className="Game-container" data-testid="game-container">

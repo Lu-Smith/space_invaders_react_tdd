@@ -134,15 +134,17 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
 
 
     useEffect(() => {   
-      
         const shootLasers = () => {
-          const hitInvaders = newAlienInvaders.filter((invader) => !laserIndex.includes(invader))
-          const newScore = alienInvaders.length - hitInvaders.length
-          if(newScore) {
-             handleScore(newScore)
-          }
-          console.log(newScore);
+          const hitInvaders = newAlienInvaders.filter((invader) => !laserIndex.includes(invader));
+          setNewAlienInvaders(hitInvaders);
 
+          console.log(alienInvaders.length, newAlienInvaders.length);
+
+          const newScore = alienInvaders.length - newAlienInvaders.length;
+          if(newScore) {
+             handleScore(newScore);
+
+          };
         };
 
         const handleKeyDown = (e: KeyboardEvent | null ) => {
@@ -170,7 +172,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
         };
-    }, [totalSquares, laserIndex, spaceshipIndex, alienInvaders, handleScore]);
+    }, [totalSquares, laserIndex, spaceshipIndex, alienInvaders, handleScore, newAlienInvaders]);
 
 
    
