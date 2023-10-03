@@ -60,32 +60,9 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
 
     squares.push(<div key={i} className={squareClass} data-testid={squareId}></div>);
   }
-
-  const resetInvaders = () => {
-    const initialAlienInvaders = [
-      0,1,2,3,4,5,6,7,8,9,10,11,12,13,
-      26,27,28,29,30,31,32,33,34,35,36,37,
-      52,53,54,55,56,57,58,59,60,61
-    ];
-    
-    setAlienInvaders(initialAlienInvaders);
-    setNewAlienInvaders([...initialAlienInvaders]);
-  }
-
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     if (gameOver) {
-  //       resetInvaders();
-  //     }
-  //   }, 1500)
-    
-  //   return () => {
-  //         clearInterval(intervalId);
-  //   };
-  // }, [gameOver])
-
+ 
   useEffect(() => {
-    console.log(gameOver);
+ 
     
     if (pause === 'pause' && !gameOver) {        
       const intervalId = setInterval(() => {
@@ -131,7 +108,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     return () => {
       clearInterval(intervalId);
     };
-  } 
+  }
 
   }, [gameOver, direction, newAlienInvaders, pause, handleGameOver]);
 
@@ -152,7 +129,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
       };
 
       const handleKeyDown = (e: KeyboardEvent | null ) => {
-          if (e !== null) {
+          if (e !== null && !gameOver) {
               if (e.key === 'ArrowLeft') {
                   setSpaceshipIndex((prevIndex) => Math.max(prevIndex - 1, 475));
               }
@@ -177,7 +154,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
           window.removeEventListener('keydown', handleKeyDown);
       };
 
-  }, [totalSquares, laserIndex, newAlienInvaders]);
+  }, [totalSquares, laserIndex, newAlienInvaders, gameOver]);
 
   return (
     <div className="Game-board" data-testid="Game-board">

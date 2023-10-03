@@ -10,6 +10,12 @@ const Game = () => {
   const [newTimer, setNewTimer] = useState<number>(0);
   const [timer, setTimer] = useState('00:00');
   const [pause, setPause] = useState('pause');
+  const [showGameBoard, setShowGameBoard] = useState(true);
+
+  const restartGameBoard = () => {
+    setShowGameBoard(false); // Unmount the child component
+    setTimeout(() => setShowGameBoard(true), 0); // Remount the child component
+  };
 
 
   useEffect(() => {
@@ -57,6 +63,7 @@ const Game = () => {
     setScore(0);
     setNewTimer(0);
     setGameOverMessage('');
+    restartGameBoard();
   };
 
   const handleGameOver = () => {
@@ -68,7 +75,8 @@ const Game = () => {
     if (score === 100) {
       handleGameOver();
       setGameOverMessage('Well done, you won!');
-    } else  if (score !== 100 && gameOver) {
+    } 
+    else  if (score !== 100 && gameOver) {
       setGameOverMessage('Game Over! You Lost!');
     }
   }, [score, gameOver])
@@ -100,7 +108,7 @@ const Game = () => {
       </header>
       <div className="Game-container" data-testid="game-container">
         {gameOver ? <h3>{gameOverMessage}</h3> : null}
-        <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} gameOver={gameOver} />
+        {showGameBoard && <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} gameOver={gameOver} />}
         <button 
         onClick={handlePauseClick} 
         className="Game-button" 
