@@ -48,7 +48,7 @@ const Game = () => {
     return () => {
       clearInterval(timerInterval);
     };
-  }, [pause]);
+  }, [pause, handleTimer]);
 
   const handleNewGame = () => {
     setPause('pause');
@@ -56,8 +56,6 @@ const Game = () => {
     setScore(0);
     setNewTimer(0);
   };
-
-
 
   const handleGameOver = () => {
     setGameOver(true);
@@ -68,8 +66,10 @@ const Game = () => {
     if (score === 100) {
       handleGameOver();
       setGameOverMessage('Well done, you won!')
+    } else  if (score !== 100 && gameOver) {
+      setGameOverMessage('Game Over! You Lost!')
     }
-  }, [score])
+  }, [score, gameOver])
 
   const handleScore = (newScore: number) => {
       setScore(Math.floor(newScore/36*100));
