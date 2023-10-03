@@ -19,8 +19,10 @@ const Game = () => {
 
 
   useEffect(() => {
+    //game can not be longer than 2min
     const handleTimer = (updatedNewTimer: number) => {
       const minutes = Math.floor(updatedNewTimer/60);
+      const seconds = updatedNewTimer - minutes;
       if (newTimer === 0) {
         setTimer('00:00')
       };
@@ -28,11 +30,13 @@ const Game = () => {
         setTimer(`00:0${updatedNewTimer}`)
       } else if (updatedNewTimer >= 10 && updatedNewTimer < 60) {
         setTimer(`00:${updatedNewTimer}`)
-      } else if (updatedNewTimer >= 60 && updatedNewTimer < 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) < 10 ) {
-        setTimer(`0${minutes}:0(${updatedNewTimer} - ${minutes})`)
-      } else if (updatedNewTimer >= 600 && (updatedNewTimer - Math.floor(updatedNewTimer/60)) > 10 ) {
-        setTimer(`${minutes}:(${updatedNewTimer} - ${minutes})`)
-      }
+      } else {
+        if (seconds < 10) {
+          setTimer(`0${minutes}:0${seconds}`)
+        } else if (seconds >= 10 ) {
+          setTimer(`0${minutes}:${seconds}`)
+        }
+      } 
     };
 
     const timerInterval = setInterval(() => {

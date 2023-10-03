@@ -103,7 +103,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
               newAlienInvaders[i] += 25;
         }
       }
-    }, 100);
+    }, 50);
   
     return () => {
       clearInterval(intervalId);
