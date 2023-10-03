@@ -42,7 +42,7 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     let squareClass = 'GameBoard-square';
     let squareId = 'square';
 
-    const isInvader = alienInvaders.includes(i);
+    const isInvader = newAlienInvaders.includes(i);
     const isSpaceship = spaceshipIndex === i;
     const isLaser = laserIndex.includes(i);
 
@@ -138,12 +138,9 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
           const hitInvaders = newAlienInvaders.filter((invader) => !laserIndex.includes(invader));
           setNewAlienInvaders(hitInvaders);
 
-          console.log(alienInvaders.length, newAlienInvaders.length);
-
           const newScore = alienInvaders.length - newAlienInvaders.length;
           if(newScore) {
              handleScore(newScore);
-
           };
         };
 
