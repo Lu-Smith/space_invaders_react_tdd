@@ -37,10 +37,14 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
 
   }, [spaceshipIndex])
 
+
+
 //display GameBoard
   for (let i = 0; i < totalSquares; i++) {
     let squareClass = 'GameBoard-square';
     let squareId = 'square';
+
+  
 
     const isInvader = newAlienInvaders.includes(i);
     const isSpaceship = spaceshipIndex === i;
@@ -132,16 +136,17 @@ const GameBoard: React.FC<GameBoardProps> = ({ handleGameOver, handleScore, paus
     //   }
     // }, [gameLost]);
 
+    useEffect (() => {
+      const newScore = alienInvaders.length - newAlienInvaders.length;
+      handleScore(newScore);
+    }, [newAlienInvaders])
+
 
     useEffect(() => {   
         const shootLasers = () => {
           const hitInvaders = newAlienInvaders.filter((invader) => !laserIndex.includes(invader));
           setNewAlienInvaders(hitInvaders);
 
-          const newScore = alienInvaders.length - newAlienInvaders.length;
-          if(newScore) {
-             handleScore(newScore);
-          };
         };
 
         const handleKeyDown = (e: KeyboardEvent | null ) => {
