@@ -5,6 +5,7 @@ import '../styles/Game.css';
 
 const Game = () => {
   const [gameOver, setGameOver] = useState(false);
+  const [gameOverMessage, setGameOverMessage] = useState('Game Over');
   const [score, setScore] = useState(0);
   const [newTimer, setNewTimer] = useState<number>(0);
   const [timer, setTimer] = useState('00:00');
@@ -56,10 +57,19 @@ const Game = () => {
     setNewTimer(0);
   };
 
+
+
   const handleGameOver = () => {
     setGameOver(true);
     setPause('try again');
   };
+
+  useEffect(() => {
+    if (score === 100) {
+      handleGameOver();
+      setGameOverMessage('Well done, you won!')
+    }
+  }, [score])
 
   const handleScore = (newScore: number) => {
       setScore(Math.floor(newScore/36*100));
@@ -87,7 +97,7 @@ const Game = () => {
         </div>
       </header>
       <div className="Game-container" data-testid="game-container">
-        {gameOver ? <h3>Game Over</h3> : null}
+        {gameOver ? <h3>{gameOverMessage}</h3> : null}
         <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />
         <button 
         onClick={handlePauseClick} 
