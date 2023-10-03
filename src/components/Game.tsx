@@ -98,7 +98,7 @@ const Game = () => {
       </header>
       <div className="Game-container" data-testid="game-container">
         {gameOver ? <h3>{gameOverMessage}</h3> : null}
-        <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} />
+        <GameBoard handleGameOver={handleGameOver} handleScore={handleScore} pause={pause} gameOver={gameOver} />
         <button 
         onClick={handlePauseClick} 
         className="Game-button" 
