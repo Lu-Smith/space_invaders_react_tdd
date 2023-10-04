@@ -13,7 +13,7 @@ test('renders all components', () => {
   expect(timerElement).toBeInTheDocument();
   const scoreContainer = screen.getByTestId('score-container');
   expect(scoreContainer).toBeInTheDocument();
-  const scoreElement = screen.getByText('Score: 0');
+  const scoreElement = screen.getByText('Score: 0%');
   expect(scoreElement).toBeInTheDocument();
   const gameContainer = screen.getByTestId('game-container');
   expect(gameContainer).toBeInTheDocument();
@@ -47,3 +47,19 @@ test('handles the timer correctly', () => {
     expect(timerText).toMatch(/\d{2}:\d{2}/); // Should match HH:MM format
   }, 2000); 
 });
+
+
+
+test('handles the gameOverMessage correctly', () => {
+  render(<Game />);
+  //initial state
+  const scoreContainer = screen.getByTestId('score-container');
+  expect(scoreContainer.textContent).toBe('Score: 0%');
+  const gameOverMessageContainer = screen.getByTestId('gameOver-message-container');
+  expect(gameOverMessageContainer).toBeInTheDocument();
+  expect(gameOverMessageContainer.textContent).toBe(''); 
+});
+
+
+
+
